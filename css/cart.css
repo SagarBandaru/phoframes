@@ -1,0 +1,112 @@
+/* Cart Page Styles */
+main .cart-page {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+
+main .cart-page .cart-items {
+    width: 70%;
+}
+
+main .cart-page .cart-items table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+main .cart-page .cart-items table th,
+main .cart-page .cart-items table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+main .cart-page .cart-items table th {
+    background-color: #f2f2f2;
+}
+
+main .cart-page .cart-items table img {
+    max-width: 100px;
+    max-height: 80px;
+    margin-right: 10px;
+}
+
+main .cart-page .cart-items table a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+main .cart-page .cart-items table a:hover {
+    text-decoration: underline;
+}
+
+main .cart-page .cart-items .qty {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+main .cart-page .cart-items input.cartNumber {
+    width: 40px;
+    height: 25px;
+    padding: 0 5px;
+}
+
+main .cart-page .cart-items div.prev,
+main .cart-page .cart-items div.next {
+    width: 30px;
+    height: 25px;
+    position: absolute;
+    background-color: #34495e;
+    color: #ecf0f1;
+    border-radius: 2px;
+    padding-top: 4px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+main .cart-page .cart-items div.prev:hover,
+main .cart-page .cart-items div.next:hover {
+    background-color: #3498db;
+}
+
+/* Cart Summary Styles */
+main .cart-page .cart-summary {
+    width: 25%;
+    height: auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+}
+
+main .cart-page .cart-summary h3 {
+    color: #3498db;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+}
+
+main .cart-page .cart-summary ul {
+    list-style: none;
+    padding: 0;
+}
+
+main .cart-page .cart-summary li {
+    margin-bottom: 10px;
+}
+
+main .cart-page .cart-summary a {
+    display: block;
+    background-color: #3498db;
+    color: #fff;
+    text-transform: uppercase;
+    text-decoration: none;
+    text-align: center;
+    padding: 10px;
+    border-radius: 3px;
+}
+
+main .cart-page .cart-summary a:hover {
+    background-color: #2980b9;
+}
