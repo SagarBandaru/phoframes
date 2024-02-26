@@ -13,37 +13,41 @@
 		<!-- Javascript -->	
 		<script type="text/javascript" src="js/jquery.min.js"></script>
 		<script>
-			document.addEventListener('DOMContentLoaded', () => {
-			  const cartContent = document.querySelector('.cart-content');
+		document.addEventListener('DOMContentLoaded', () => {
+			const cartContent = document.querySelector('.cart-content');
+			const cartTotalElement = document.getElementById('cartTotal');
 		
-			  
-			  const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+			const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
 		
-			 
-			  updateCartDisplay();
+			updateCartDisplay();
 		
-			  function updateCartDisplay() {
-				
+			function updateCartDisplay() {
 				cartContent.innerHTML = '';
 		
-			
+				let totalAmount = 0; 
 				cartItems.forEach(item => {
-				  const cartItemElement = document.createElement('div');
-				  cartItemElement.classList.add('cart-item');
+					const cartItemElement = document.createElement('div');
+					cartItemElement.classList.add('cart-item');
 		
-				  cartItemElement.innerHTML = `
+					cartItemElement.innerHTML = `
 					<img src="${item.image}" alt="${item.product_name}">
 					<div class="cart-item-detail">
-					  <h3>${item.category} / ${item.subcategory}</h3>
-					  <h2>${item.product_name}</h2>
-					  <p>Price: Rs.${item.price}/-</p>
+						<h3>${item.category} / ${item.subcategory}</h3>
+						<h2>${item.product_name}</h2>
+						<p>Price: Rs.${item.price}/-</p>
 					</div>`;
 		
-				  cartContent.appendChild(cartItemElement);
+					totalAmount += item.price; 
+		
+					cartContent.appendChild(cartItemElement);
 				});
-			  }
-			});
-		  </script>
+		
+		
+				cartTotalElement.innerHTML = `<p>Total: Rs.${totalAmount}/-</p>`;
+			}
+		});
+	</script>
+		
  	</head>
 <body>
 
@@ -164,6 +168,7 @@
 			<div class="cart-content">
 				<!-- Cart content will be dynamically added here  -->
 			  </div>
+			  <div class="total" id="cartTotal"></div>
 			<div class="footer-bar">
 				<div class="copyright-text">
 					<p>Copyright 2021 - All Rights Reserved</p>
