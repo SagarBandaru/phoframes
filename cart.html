@@ -17,36 +17,58 @@
 			const cartContent = document.querySelector('.cart-content');
 			const cartTotalElement = document.getElementById('cartTotal');
 		
-			const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+			let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
 		
 			updateCartDisplay();
 		
 			function updateCartDisplay() {
 				cartContent.innerHTML = '';
 		
-				let totalAmount = 0; 
+				let totalAmount = 0;
+
 				cartItems.forEach(item => {
 					const cartItemElement = document.createElement('div');
 					cartItemElement.classList.add('cart-item');
-		
+
 					cartItemElement.innerHTML = `
 					<img src="${item.image}" alt="${item.product_name}">
 					<div class="cart-item-detail">
 						<h3>${item.category} / ${item.subcategory}</h3>
 						<h2>${item.product_name}</h2>
 						<p>Price: Rs.${item.price}/-</p>
+						<div class="quantity-delete">
+							<label for="quantity">Quantity:</label>
+							<input type="number" id="quantity_${item.id}" value="${item.quantity}" min="1" onchange="updateQuantity(${item.id}, this.value)">
+							<button onclick="deleteItem(${item.id})">Delete</button>
+						</div>
 					</div>`;
-		
-					totalAmount += item.price; 
-		
+
+					totalAmount += item.price * item.quantity;
+
 					cartContent.appendChild(cartItemElement);
 				});
+
+			cartTotalElement.innerHTML = `<p>Total: Rs.${totalAmount}/-</p>`;
+
+			}
 		
+			function updateQuantity(itemId, newQuantity) {
+				const itemIndex = cartItems.findIndex(item => item.id === itemId);
+				if (itemIndex !== -1) {
+					cartItems[itemIndex].quantity = parseInt(newQuantity);
+					localStorage.setItem('cart', JSON.stringify(cartItems));
+					updateCartDisplay();
+				}
+			}
 		
-				cartTotalElement.innerHTML = `<p>Total: Rs.${totalAmount}/-</p>`;
+			function deleteItem(itemId) {
+				cartItems = cartItems.filter(item => item.id !== itemId);
+				localStorage.setItem('cart', JSON.stringify(cartItems));
+				updateCartDisplay();
 			}
 		});
 	</script>
+		
 		
  	</head>
 <body>
@@ -166,8 +188,24 @@
 
 			<h2>Shopping Cart</h2>
 			<div class="cart-content">
-				<!-- Cart content will be dynamically added here  -->
-			  </div>
+
+				${cartItems.map(item => `
+					<div class="cart-item">
+						<img src="${item.image}" alt="${item.product_name}">
+						<div class="cart-item-detail">
+							<h3>${item.category} / ${item.subcategory}</h3>
+							<h2>${item.product_name}</h2>
+							<p>Price: Rs.${item.price}/-</p>
+							<div class="quantity-delete">
+								<label for="quantity">Quantity:</label>
+								<input type="number" id="quantity_${item.id}" value="${item.quantity}" min="1" onchange="updateQuantity(${item.id}, this.value)">
+								<button onclick="deleteItem(` + item.id + `)">Delete</button>
+							</div>
+						</div>
+					</div>
+				`).join('')}
+			</div>
+			
 			  <div class="total" id="cartTotal"></div>
 			<div class="footer-bar">
 				<div class="copyright-text">
